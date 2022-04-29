@@ -66,7 +66,7 @@ export class DrawUtil extends TDShapeUtil<T, E> {
       }, [points, style.size, style.dash, isComplete])
 
       const styles = getShapeStyle(style, meta.isDarkMode)
-      const { stroke, fill, strokeWidth } = styles
+      const { stroke, fill, strokeWidth, opacity } = styles
 
       // For very short lines, draw a point instead of a line
       const bounds = this.getBounds(shape)
@@ -83,7 +83,7 @@ export class DrawUtil extends TDShapeUtil<T, E> {
               fill={stroke}
               stroke={stroke}
               pointerEvents="all"
-              opacity={isGhost ? GHOSTED_OPACITY : 1}
+              opacity={isGhost ? GHOSTED_OPACITY : opacity}
             />
           </SVGContainer>
         )
@@ -97,7 +97,7 @@ export class DrawUtil extends TDShapeUtil<T, E> {
       if (shape.style.dash === DashStyle.Draw) {
         return (
           <SVGContainer ref={ref} id={shape.id + '_svg'} {...events}>
-            <g opacity={isGhost ? GHOSTED_OPACITY : 1}>
+            <g opacity={isGhost ? GHOSTED_OPACITY : opacity}>
               <path
                 className={shouldFill || isSelected ? 'tl-fill-hitarea' : 'tl-stroke-hitarea'}
                 d={pathTDSnapshot}
@@ -146,7 +146,7 @@ export class DrawUtil extends TDShapeUtil<T, E> {
 
       return (
         <SVGContainer ref={ref} id={shape.id + '_svg'} {...events}>
-          <g opacity={isGhost ? GHOSTED_OPACITY : 1}>
+          <g opacity={isGhost ? GHOSTED_OPACITY : opacity}>
             <path
               className={shouldFill && isSelected ? 'tl-fill-hitarea' : 'tl-stroke-hitarea'}
               d={pathTDSnapshot}

@@ -157,17 +157,28 @@ export function getShapeStyle(
   stroke: string
   fill: string
   strokeWidth: number
+  opacity: number
 } {
-  const { color, size, isFilled } = style
-
-  const strokeWidth = getStrokeWidth(size)
+  const { color, size, isFilled, customColorString, customOpacity, customSize } = style
 
   const theme: Theme = isDarkMode ? 'dark' : 'light'
 
+  let strokeWidth = 0
+  if (customSize) strokeWidth = customSize
+  else strokeWidth = getStrokeWidth(size)
+
+  let stroke = '#000000'
+  if (customColorString) stroke = customColorString
+  else stroke = strokes[theme][color]
+
+  let opacity = 1
+  if (customOpacity) opacity = customOpacity
+
   return {
-    stroke: strokes[theme][color],
+    stroke,
     fill: isFilled ? fills[theme][color] : 'none',
     strokeWidth,
+    opacity,
   }
 }
 

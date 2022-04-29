@@ -464,6 +464,10 @@ export type ShapeStyles = {
   textAlign?: AlignStyle
   isFilled?: boolean
   scale?: number
+  // Andrew added
+  customColorString?: string
+  customSize?: number
+  customOpacity?: number
 }
 
 export enum TDAssetType {
